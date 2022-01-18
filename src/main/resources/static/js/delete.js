@@ -22,7 +22,6 @@ $(document).ready(function(){
                 $("#model-delete-btn").css({"display": "none"});
                 $("button.btn.btn-secondary").text("Close");
 
-                // delete the customer row on html page
                 let row_id = "tr_" + contactId;
                 $("#" + row_id).remove();
                 $("#div_contact_updating").css({"display": "none"});

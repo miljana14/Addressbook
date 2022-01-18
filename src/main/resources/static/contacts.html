@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>CSV</title>
+    <title>Customers</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -14,39 +14,39 @@
         const dbParam = JSON.stringify({table:"contacts"});
         const xmlhttp = new XMLHttpRequest();
         xmlhttp.onload = function() {
-          const myObj = JSON.parse(this.responseText);
+          const contactList = JSON.parse(this.responseText);
 
           let text = "<table border='1'>"
-          for (let x in myObj) {
-            text += "<tr><td>" + myObj[x].id + "</td>" +
-                    "<td>" + myObj[x].picture + "</td>" +
-                    "<td>" + myObj[x].name + "</td>" +
-                    "<td>" + myObj[x].address + "</td>" +
+          for (let contact in contactList) {
+            text += "<tr><td>" + contactList[contact].id + "</td>" +
+                    "<td>" + contactList[contact].picture + "</td>" +
+                    "<td>" + contactList[contact].name + "</td>" +
+                    "<td>" + contactList[contact].address + "</td>" +
                     "<td></td>" +
                     "<td>" + '<button ' +
                                         'id=' +
-                                        '\"' + 'btn_delete_' + myObj[x].id + '\"'+
+                                        '\"' + 'btn_delete_' + contactList[contact].id + '\"'+
                                         ' type="button" class="btn btn-danger btn_delete" data-toggle="modal" data-target="#delete-modal"' +
                                         '>&times</button>' + "</td>" +
                     "<td>" + '<button' +
-                                            ' id=' + '\"' + 'btn_id_' + myObj[x].id + '\"' +
+                                            ' id=' + '\"' + 'btn_id_' + contactList[contact].id + '\"' +
                                             ' type="button" class="btn btn-info btn_id">Update</button>' + "</td>" +
                     "</tr>";
           }
           text += "</table>"
 
-          document.getElementById("demo").innerHTML = text;
+          document.getElementById("allContacts").innerHTML = text;
         }
         xmlhttp.open("GET", "http://localhost:8080/contacts");
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("x=" + dbParam);
+        xmlhttp.send("contact=" + dbParam);
     </script>
 
     <script>
         $(document).ready(function(){
           $("#fieldKeyword").on("keyup", function() {
             var value = $(this).val().toLowerCase();
-            $("#demo tr").filter(function() {
+            $("#allContacts tr").filter(function() {
               $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
           });
@@ -91,15 +91,16 @@
                     <th class="text-center">Update</th>
                 </tr>
                 </thead>
-                <tbody class="text-center" id="demo">
+                <tbody class="text-center" id="allContacts">
                 </tbody>
             </table>
         </div>
     </div>
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-sm-6" style="display: none; background-color:#0dcaf0; padding:10px; border-radius:3px"
          id="div_contact_updating">
+        <h3 class="text-center">Update Contact</h3>
         <form id="update_contact_form">
             <div class="form-group">
                 <label for="contact_id">Id:</label>
@@ -125,22 +126,18 @@
 </div>
 <hr>
 
-<!-- The Modal -->
 <div class="modal fade" id="delete-modal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
-            <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Delete</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
-            <!-- Modal body -->
             <div class="modal-body">
             </div>
 
-            <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" id="model-delete-btn">Delete</button>
@@ -149,7 +146,5 @@
     </div>
 </div>
 </div>
-
-<p id="searchMessage"></p>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class ContactController {
     }
 
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/get/{id}")
     public Optional<Contact> findOne(@PathVariable Integer id) {
         return contactService.findOne(id);
     }
