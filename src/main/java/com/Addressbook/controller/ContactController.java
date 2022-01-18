@@ -29,13 +29,12 @@ public class ContactController {
         return contactService.findAll();
     }
 
-    @CrossOrigin(origins="http://localhost:8080/contacts/getOne/{id}")
-    @GetMapping(path = "/getOne/{id}")
+
+    @GetMapping(path = "/{id}")
     public Optional<Contact> findOne(@PathVariable Integer id) {
         return contactService.findOne(id);
     }
 
-    @CrossOrigin(origins="http://localhost:8080/contacts/add")
     @PostMapping(path = "/add")
     public ContactResponse create(@RequestBody Contact contact) {
 
@@ -53,7 +52,6 @@ public class ContactController {
             return new ContactResponse("Contact successfully updated");
     }
 
-    @CrossOrigin(origins="http://localhost:8080/contacts/{id}")
     @DeleteMapping(path = "/{id}")
     public ContactResponse delete(@PathVariable Integer id) {
         if (contactService.findOne(id).isEmpty()) {

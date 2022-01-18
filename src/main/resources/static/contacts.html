@@ -9,24 +9,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/delete.js"></script>
-    <script type="text/javascript" src="/js/search.js"></script>
-<script>
+    <script type="text/javascript" src="/js/update.js"></script>
+    <script>
         const dbParam = JSON.stringify({table:"contacts"});
         const xmlhttp = new XMLHttpRequest();
         xmlhttp.onload = function() {
           const myObj = JSON.parse(this.responseText);
 
-          let deleteButton = '<button ' +
-                                        'id=' +
-                                        '\"' + 'btn_delete_' + myObj.id + '\"'+
-                                        ' type="button" class="btn btn-danger btn_delete" data-toggle="modal" data-target="#delete-modal"' +
-                                        '>&times</button>';
-
-          let get_More_Info_Btn = '<button' +
-                                            ' id=' + '\"' + 'btn_id_' + myObj.id + '\"' +
-                                            ' type="button" class="btn btn-info btn_id">' +
-                                            myObj.id +
-                                            '</button>';
           let text = "<table border='1'>"
           for (let x in myObj) {
             text += "<tr><td>" + myObj[x].id + "</td>" +
@@ -34,11 +23,18 @@
                     "<td>" + myObj[x].name + "</td>" +
                     "<td>" + myObj[x].address + "</td>" +
                     "<td></td>" +
-                    "<td>" + deleteButton + "</td>" +
-                    "<td>" + get_More_Info_Btn + "</td>" +
+                    "<td>" + '<button ' +
+                                        'id=' +
+                                        '\"' + 'btn_delete_' + myObj[x].id + '\"'+
+                                        ' type="button" class="btn btn-danger btn_delete" data-toggle="modal" data-target="#delete-modal"' +
+                                        '>&times</button>' + "</td>" +
+                    "<td>" + '<button' +
+                                            ' id=' + '\"' + 'btn_id_' + myObj[x].id + '\"' +
+                                            ' type="button" class="btn btn-info btn_id">Update</button>' + "</td>" +
                     "</tr>";
           }
           text += "</table>"
+
           document.getElementById("demo").innerHTML = text;
         }
         xmlhttp.open("GET", "http://localhost:8080/contacts");
@@ -46,6 +42,16 @@
         xmlhttp.send("x=" + dbParam);
     </script>
 
+    <script>
+        $(document).ready(function(){
+          $("#fieldKeyword").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#demo tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+    </script>
 
 </head>
 <body>
@@ -82,7 +88,7 @@
                     <th class="text-center">Address</th>
                     <th class="text-center">Edit</th>
                     <th class="text-center">Delete</th>
-                    <th class="text-center">Info</th>
+                    <th class="text-center">Update</th>
                 </tr>
                 </thead>
                 <tbody class="text-center" id="demo">

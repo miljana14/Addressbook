@@ -4,7 +4,6 @@ $(document).ready(function(){
         try {
             let contactId = $("#contact_id").val();
 
-            // PREPARE FORM DATA
             let formData = {
                picture : $("#contact_picture").val(),
                name :  $("#contact_name").val(),
@@ -60,7 +59,7 @@ $(document).ready(function(){
         let contactId = id_of_button.split("_")[2];
 
         $.ajax({
-            url: 'http://localhost:8080/contacts/getOne/' + contactId,
+            url: 'http://localhost:8080/contacts/' + contactId,
             type: 'GET',
             success: function(response) {
                 let contact = response.contacts[0];

@@ -3,6 +3,7 @@ $(document).ready(function(){
 
     $(document).on("click", "#div_contact_table table button.btn_delete", function() {
         let btn_id = (event.srcElement.id);
+
         contactId = btn_id.split("_")[2];
 
         $("div.modal-body")
