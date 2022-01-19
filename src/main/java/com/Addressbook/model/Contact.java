@@ -6,9 +6,6 @@ import javax.persistence.*;
 @Table(name = "contacts")
 public class Contact {
     @Id
-//    @SequenceGenerator(name = "id_sequence",
-//                        sequenceName = "id_sequence",
-//                        allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column

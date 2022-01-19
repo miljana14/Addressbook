@@ -47,7 +47,7 @@ $(document).ready(function() {
         let pathname = window.location.pathname;
         if(pathname === "/add.html"){
             $(".nav .nav-item a:first").addClass("active");
-        } else if (pathname == "/customers.html") {
+        } else if (pathname == "/contacts.html") {
             $(".nav .nav-item a:last").addClass("active");
         }
     })();

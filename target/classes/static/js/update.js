@@ -20,17 +20,10 @@ $(document).ready(function(){
                 cache: false,
                 success: function (response) {
                     let contact = response;
-//                    let contactString = "{ picture: " + contact.picture + ", name: " + contact.name +
-//                                           ", address: " + contact.address + " }"
                     let successAlert = '<div class="alert alert-success alert-dismissible">' +
                                             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                                             '<strong>' + response.message + '</strong>' +
                                         '</div>'
-
-
-//                    $("#tr_" + contactId + " td.td_picture").text(contact.picture);
-//                    $("#tr_" + contactId + " td.td_name").text(contact.name);
-//                    $("#tr_" + contactId + " td.td_address").text(contact.address);
 
                     $("#response").empty();
                     $("#response").append(successAlert);
@@ -77,9 +70,3 @@ $(document).ready(function(){
     });
 });
 
-//(function(){
-//        let pathname = window.location.pathname;
-//        if (pathname == "/update.html") {
-//            $(".nav .nav-item a:last").addClass("active");
-//        }
-//    })();
